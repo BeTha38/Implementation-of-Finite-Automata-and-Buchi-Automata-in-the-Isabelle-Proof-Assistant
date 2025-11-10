@@ -9,6 +9,6 @@ A central result of this work is the formal verification of the equivalence in e
 
 Furthermore, it is formally proven that the class of regular languages is closed under the operations of intersection, union, complementation, reversal, concatenation and kleene-star-closure.
 In addition, Brzozowksi's algorithm for DFA minimization is implemented and verified, i.e. for every NFA there exists an unique (up to renaming its states) DFA accepting the same language.
-Last but not least, the pumping lemma for regular languages is implemented. The code and theorems are far from optimally implemented or efficiently automated.
+Last but not least, the pumping lemma for regular languages is implemented. The code and theorems are far from optimally implemented nor efficiently automated.
 
 In "automaton_examples.thy" there are several examples demonstrating the code, building on all the theories before. Download all theories, open automaton_examples.thy and enjoy!
