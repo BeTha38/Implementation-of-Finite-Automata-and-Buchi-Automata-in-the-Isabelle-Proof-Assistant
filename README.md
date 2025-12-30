@@ -13,10 +13,11 @@ Furthermore, it is formally proved that the class of regular languages is closed
 - intersection
 - union
 - complementation
+- relative complementation
 - reversal
 - concatenation
 - Kleene star
-- finite languages
+- all finite languages are regular
 
 In addition, Brzozowski’s algorithm for DFA minimization is implemented and verified: for every NFA there exists a unique (up to renaming of states) minimal DFA accepting the same language.
 
