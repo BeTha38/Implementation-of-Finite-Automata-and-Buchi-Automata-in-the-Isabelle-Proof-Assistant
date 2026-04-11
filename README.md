@@ -1,4 +1,4 @@
-This project contains approximately 17'000 lines of Isabelle/HOL code formalizing finite automata, regular expressions, and (strictly) regular grammars, and Büchi automata and omega regular expressions.
+This project contains approximately 17'000 lines of Isabelle/HOL code formalizing finite automata, regular expressions, (strictly) regular grammars, and Büchi automata and omega regular expressions.
 It analyzes their theoretical properties and formally proves a number of classic results from automata theory.
 
 A central outcome of this development is the formal verification of the equivalence in expressive power between several formalisms. In particular, it is shown that for every NFA there exists an equivalent automaton/epxression/grammar accepting the same language:
@@ -27,7 +27,7 @@ Finally, the pumping lemma for regular languages is formalized.
 
 
 
-For Büchi automata it is shown, that NBAs have the same expressive power as omega regular expressions. For DBAs there is a simple complementation algorithm.
+For Büchi automata it is shown, that NBAs have the same expressive power as omega regular expressions, however DBAs do not encompass all omega regular languages, shown using the limit languages of DBAs. For DBAs there is a simple complementation algorithm.
 
 Furthermore, it is formally proven that the class of omega regular languages is closed under:
 
