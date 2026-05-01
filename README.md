@@ -38,6 +38,7 @@ Furthermore, it is formally proven that the class of omega regular languages is 
 * concatenation of a regular and an omega regular language
 * omega power
 
+In contrast to regular languages, it is shown that finite omega languages in general are not omega regular.
 The construction of the complementation automaton follows the thesis "a direct complementation method for büchi automata" by Allred and Ultes-Nitsche. It is a level-based algorithm using so-called greedy runs.
 
 The code and proofs are not optimized nor heavily automated; the focus of the project is correctness and transparency rather than efficiency.
