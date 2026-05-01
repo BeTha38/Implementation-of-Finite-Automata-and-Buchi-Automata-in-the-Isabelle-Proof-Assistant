@@ -1,4 +1,4 @@
-This project contains approximately 17'000 lines of Isabelle/HOL code formalizing finite automata, regular expressions, (strictly) regular grammars, and Büchi automata and omega regular expressions.
+This project contains approximately 25'000 lines of Isabelle/HOL code formalizing finite automata, regular expressions, (strictly) regular grammars, and Büchi automata and omega regular expressions.
 It analyzes their theoretical properties and formally proves a number of classic results from automata theory.
 
 A central outcome of this development is the formal verification of the equivalence in expressive power between several formalisms. In particular, it is shown that for every NFA there exists an equivalent automaton/epxression/grammar accepting the same language:
@@ -27,16 +27,18 @@ Finally, the pumping lemma for regular languages is formalized.
 
 
 
-For Büchi automata it is shown, that NBAs have the same expressive power as omega regular expressions, however DBAs do not encompass all omega regular languages, shown using the limit languages of DBAs. For DBAs there is a simple complementation algorithm.
+For Büchi automata it is shown, that NBAs have the same expressive power as omega regular expressions and NBAs with multiple initial states (NBA-multi), however DBAs do not encompass all omega regular languages, shown using the limit languages of DBAs. For DBAs there is a simple complementation algorithm.
 
 Furthermore, it is formally proven that the class of omega regular languages is closed under:
 
 * intersection
 * union
+* complementation
+* relative complementation
 * concatenation of a regular and an omega regular language
 * omega power
 
-
+The construction of the complementation automaton follows the thesis "a direct complementation method for büchi automata" by Allred and Ultes-Nitsche. It is a level-based algorithm using so-called greedy runs.
 
 The code and proofs are not optimized nor heavily automated; the focus of the project is correctness and transparency rather than efficiency.
 
