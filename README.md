@@ -19,6 +19,7 @@ Furthermore, it is formally proved that the class of regular languages is closed
 * reversal
 * concatenation
 * Kleene star
+* Kleene closure of Sigma
 * all finite languages are regular
 
 In addition, Brzozowski's algorithm for DFA minimization is implemented and verified: for every NFA there exists a unique (up to renaming of states) minimal DFA accepting the same language.
@@ -29,7 +30,7 @@ Finally, the pumping lemma for regular languages is formalized.
 
 For Büchi automata it is shown, that NBAs have the same expressive power as omega regular expressions and NBAs with multiple initial states (NBA-multi), however DBAs do not encompass all omega regular languages, shown using the limit languages of DBAs. For DBAs there is a simple complementation algorithm.
 
-Furthermore, it is formally proven that the class of omega regular languages is closed under:
+Furthermore, it is formally proved that the class of omega regular languages is closed under:
 
 * intersection
 * union
@@ -37,6 +38,7 @@ Furthermore, it is formally proven that the class of omega regular languages is 
 * relative complementation
 * concatenation of a regular and an omega regular language
 * omega power
+* omega closure of Sigma
 
 In contrast to regular languages, it is shown that finite omega languages in general are not omega regular.
 The construction of the complementation automaton follows the thesis "a direct complementation method for büchi automata" by Allred and Ultes-Nitsche. It is a level-based algorithm using so-called greedy runs.
