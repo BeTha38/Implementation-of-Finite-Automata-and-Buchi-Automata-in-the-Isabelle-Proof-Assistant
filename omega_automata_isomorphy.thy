@@ -4,7 +4,7 @@ imports Main omega_automata
 
 begin
 
-text \<open>Author: Benno Thalmann, last update: 12.5.2026, Addition to masterarbeit_benno_thalmann\<close>
+text \<open>Author: Benno Thalmann, last update: 15.5.2026, Addition to masterarbeit_benno_thalmann\<close>
 
 corollary omega_language_well_def_iso_auto:
   assumes "auto_well_defined \<A>1" "isomorphic_automata \<A>1 \<A>2"
@@ -307,6 +307,60 @@ proof -
   then obtain \<A>2 :: "('s, 'a) automaton" where A2: "auto_well_defined \<A>2 \<and> DFA_property \<A>2 \<and> alphabet \<A>1 = alphabet \<A>2 \<and> language_auto \<A>1 = language_auto \<A>2" using existence_of_DFA_same_type assms by metis
   hence "omega_language_auto \<A>1 \<noteq> omega_language_auto \<A>2" using A1 by blast
   thus ?thesis using A1 A2 by metis
+qed
+
+definition \<A>_empty_empty :: "'s state \<Rightarrow> 'a alphabet \<Rightarrow> ('s, 'a) automaton" where "\<A>_empty_empty s \<Sigma> = Automaton {s} \<Sigma> {} s {}"
+
+definition \<A>_epsilon_empty :: "'s state \<Rightarrow> 'a alphabet \<Rightarrow> ('s, 'a) automaton" where "\<A>_epsilon_empty s \<Sigma> = Automaton {s} \<Sigma> {} s {s}"
+
+lemma well_def_\<A>_empty_empty:
+  assumes "finite \<Sigma>"
+  shows "auto_well_defined (\<A>_empty_empty s \<Sigma>)"
+  using assms unfolding \<A>_empty_empty_def auto_well_defined_def by auto
+
+lemma well_def_\<A>_epsilon_empty:
+  assumes "finite \<Sigma>"
+  shows "auto_well_defined (\<A>_epsilon_empty s \<Sigma>)"
+  using assms unfolding \<A>_epsilon_empty_def auto_well_defined_def by auto
+
+lemma language_\<A>_empty_empty: "language_auto (\<A>_empty_empty s \<Sigma>) = {}"
+  using no_acc_states unfolding \<A>_empty_empty_def by force
+
+lemma language_\<A>_epsilon_empty: "language_auto (\<A>_epsilon_empty s \<Sigma>) = {[]}"
+proof -
+  have "run_accepting [s] (\<A>_epsilon_empty s \<Sigma>) []" unfolding run_accepting_def run_well_defined_def pseudo_run_well_defined_def \<A>_epsilon_empty_def by auto
+  hence in_lang: "[] \<in> language_auto (\<A>_epsilon_empty s \<Sigma>)" unfolding language_auto_def by blast
+  {
+    fix w assume "w \<in> language_auto (\<A>_epsilon_empty s \<Sigma>)"
+    then obtain r where "run_accepting r (\<A>_epsilon_empty s \<Sigma>) w" unfolding language_auto_def by blast
+    hence "length r = length w + 1 \<and> (\<forall> i < length r - 1 . (r ! i, w ! i, r ! (i + 1)) \<in> {})" unfolding run_accepting_def run_well_defined_def pseudo_run_well_defined_def \<A>_epsilon_empty_def by auto
+    hence "length w = 0" by (cases w) auto
+    hence "w = []" by simp
+  }
+  hence "\<forall> w \<in> language_auto (\<A>_epsilon_empty s \<Sigma>) . w = []" by simp
+  thus ?thesis using in_lang by blast
+qed
+
+lemma omega_language_\<A>_empty_empty: "omega_language_auto (\<A>_empty_empty s \<Sigma>) = {}"
+  unfolding omega_language_auto_def omega_run_accepting_def omega_run_well_defined_def omega_pseudo_run_well_defined_def \<A>_empty_empty_def by auto
+
+lemma omega_language_\<A>_epsilon_empty: "omega_language_auto (\<A>_epsilon_empty s \<Sigma>) = {}"
+  unfolding omega_language_auto_def omega_run_accepting_def omega_run_well_defined_def omega_pseudo_run_well_defined_def \<A>_epsilon_empty_def by auto
+
+theorem same_omega_language_not_same_finite_language:
+  assumes "infinite (UNIV :: 's set)"
+  shows "\<exists> (\<A>1 :: ('s, 'a) automaton) (\<A>2 :: ('s, 'a) automaton) . auto_well_defined \<A>1 \<and> auto_well_defined \<A>2 \<and> alphabet \<A>1 = alphabet \<A>2 \<and> omega_language_auto \<A>1 = omega_language_auto \<A>2 \<and> language_auto \<A>1 \<noteq> language_auto \<A>2"
+proof -
+  obtain s :: 's where s: "s \<in> UNIV" by blast
+  let ?\<Sigma> = "{} :: 'a alphabet"
+  let ?A1 = "\<A>_empty_empty s ?\<Sigma>"
+  let ?A2 = "\<A>_epsilon_empty s ?\<Sigma>"
+  have well1: "auto_well_defined ?A1" using well_def_\<A>_empty_empty by fast
+  have well2: "auto_well_defined ?A2" using well_def_\<A>_epsilon_empty by fast
+  have alph: "alphabet ?A1 = alphabet ?A2" unfolding \<A>_empty_empty_def \<A>_epsilon_empty_def by simp
+  have omega_eq: "omega_language_auto ?A1 = omega_language_auto ?A2" using omega_language_\<A>_empty_empty omega_language_\<A>_epsilon_empty by metis
+  have "language_auto ?A1 \<noteq> language_auto ?A2" using language_\<A>_empty_empty language_\<A>_epsilon_empty by fast
+  thus ?thesis using well1 well2 alph omega_eq by blast
 qed
 
 end
